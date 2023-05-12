@@ -23,7 +23,7 @@ do_eval = int(os.environ.get('EVAL', True))
 with open(input_fn, 'r') as f:
     notebook = reader.read(f)
 
-if do_eval and not any([i in input_fn for i in ignore_execution]):
+if do_eval and all(i not in input_fn for i in ignore_execution):
     tic = time.time()
     notedown.run(notebook, timeout)
     print('=== Finished evaluation in %f sec'%(time.time()-tic))
